@@ -20,7 +20,11 @@ def show_images(imgs, rows = 1):
             axs[row, col].imshow(imgs[row*cols + col])
 
 def augment_data(data, translate = True, scale = True, rotation = True, brightness = True, debug = False):
-    
+    '''
+    :param data: only X_data
+    :param debug: show 1 image before and after augmentation
+    :return : augmented data
+    '''
     if debug:
         print("Before: ")
         show_images(data[0:2])
