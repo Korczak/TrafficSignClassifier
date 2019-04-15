@@ -14,6 +14,9 @@ nb_classes = 43
 
 
 def get_model(summary = False):
+	'''Creates specified model
+	:return: compiled model
+	'''
 	model = Sequential()
 
 	model.add(Conv2D(32, (3, 3), input_shape= (32,32,3), activation='relu'))

@@ -11,7 +11,9 @@ X_train, y_train, X_test, y_test = [], [], [], []
 nb_classes = 43
 
 def load_data():
-
+	'''load data from data folder
+	:return: X, y for train and test
+	'''
 	training_file = "data/train.p"
 	test_file = "data/test.p"
 
@@ -29,6 +31,11 @@ def load_data():
 	return X_train, y_train, X_test, y_test
 
 def get_number_image_per_class(y_data, debug = False):
+	'''
+	:param y_data:
+	:param debug: show scores as histogram
+	:return: array of number of images per class 
+	'''
 	nb_image_in_class = np.zeros(nb_classes, dtype=np.int64)
 	
 	nb_hist_classes = []
@@ -45,6 +52,10 @@ def get_number_image_per_class(y_data, debug = False):
 	return nb_image_in_class
 
 def get_data_with_class(x_data, y_data, nb_of_class):
+	'''get data with specified class
+	:param nb_of_class: return data with specified class id
+	:return: returns only X_data with specified class id
+	'''
 	output = []
 	
 	output.append([x_data[ind] for ind, y in enumerate(y_data) if y[nb_of_class] == 1])
@@ -52,6 +63,11 @@ def get_data_with_class(x_data, y_data, nb_of_class):
 	return output[0]
 
 def create_data(x_data, y_data, num_of_data_per_class = 1000):
+    '''Creates data with the same number of every classes 
+	:param x_data: images from load_data
+	:param y_data: labels from load_data
+	:return: X_data and y_data - amount = num_of_data_per_class * num_of_classes
+    '''
     nb_image_per_class = get_number_image_per_class(y_data)
     data_val = []
     data_imgs = []
