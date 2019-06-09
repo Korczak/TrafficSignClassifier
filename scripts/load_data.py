@@ -4,7 +4,8 @@ import numpy as np
 import cv2
 from keras.utils import np_utils
 
-from tools import *
+from scripts.tools import *
+from scripts.augment_data import augment_data
 
 
 X_train, y_train, X_test, y_test = [], [], [], []
@@ -102,6 +103,6 @@ def create_data(x_data, y_data, num_of_data_per_class = 1000):
 
 if __name__ == '__main__':
     X_train, y_train, X_test, y_test = load_data();
-    X_train = preprocess_data(X_train)
 
-    create_data(X_train, y_train)
+    create_data(X_train, y_train, num_of_data_per_class = 500)
+
