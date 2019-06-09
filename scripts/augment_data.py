@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 
-from tools import show_img, show_imgs
+from scripts.tools import show_img, show_imgs
 
 
 def augment_data(data, translate = True, scale = True, rotation = True, brightness = True, debug = False):
@@ -31,7 +31,12 @@ def augment_data(data, translate = True, scale = True, rotation = True, brightne
         
     return data
 
-def random_translate(data, max_translation = 2):
+def random_translate(data, max_translation = 2):    
+    '''
+    :param data: only X_data
+    :param max_translation: maximum translation of image
+    :return : translated data
+    '''
     rows, cols, channels = data[0].shape
     px = max_translation
     dx, dy = np.random.randint(-px, px, 2)
@@ -40,6 +45,11 @@ def random_translate(data, max_translation = 2):
     return data
 
 def random_rotation(data, max_rotation = 10):
+    '''
+    :param data: only X_data
+    :param max_translation: maximum translation of image
+    :return : translated data
+    '''
     rows, cols, channels = np.asarray(data[0]).shape
     rotation = np.random.randint(-max_rotation, max_rotation, 1)
     M = cv2.getRotationMatrix2D((cols/2, rows/2), rotation, 1)
@@ -47,6 +57,11 @@ def random_rotation(data, max_rotation = 10):
     return data
 
 def random_scale(data, max_scale = 2):
+    '''
+    :param data: only X_data
+    :param max_scale: maximum scale of image
+    :return: scaled data
+    '''
     rows, cols, channels = data[0].shape
     dx, dy = np.random.randint(-max_scale, max_scale, 2)
     
@@ -60,6 +75,11 @@ def random_scale(data, max_scale = 2):
     return data
 
 def random_brightness(data, max_brightness =  25):
+    '''
+    :param data: only X_data
+    :param max_brightness: maximum brightness to add to an image
+    :return: brighter data
+    '''
     value = np.uint8(np.random.randint(0, max_brightness, 1))
     for img in data:
         max_val = np.max(img)
@@ -67,11 +87,6 @@ def random_brightness(data, max_brightness =  25):
         img[img > lim] = max_val
         img[img <= lim] += value
     
-    return data
-
-
-def preprocess_data(data):
-    #data = [cv2.cvtColor(img, cv2.COLOR_RGB2GRAY) for img in data]
     return data
 
 
